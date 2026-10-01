@@ -77,6 +77,51 @@ test('des options JSON invalides sont signalées sans appliquer les réglages', 
   assert.equal(h.run('state.settings.llm_model'), 'chat');
 });
 
+test('le catalogue remplit de vraies options de sélection', async () => {
+  const h = await harness(async () => Response.json({chat:['chat-a','chat-b'],embedding:['embed-a']}));
+  h.node('protocol').value = 'openai';
+  h.node('base-url').value = 'http://local/v1';
+  h.node('max-tokens').value = '2048';
+  await h.run('refreshModels()');
+  assert.deepEqual(h.node('llm-model').children.map(option => option.value), ['chat-a','chat-b']);
+  assert.equal(h.node('llm-model').value, 'chat-a');
+});
+
+test('basculer vers Ollama change l’adresse et revenir restaure les réglages API', async () => {
+  const requests = [];
+  const h = await harness(async (path, options) => {
+    requests.push(JSON.parse(options.body));
+    return Response.json({chat:['chat'],embedding:['embed']});
+  });
+  h.run('state.formProtocol="openai"; state.ollama={base_url:"http://localhost:11434", llm_model:"chat", embed_model:"embed"}');
+  h.node('base-url').value = 'https://custom.example/v1';
+  h.node('api-key').value = 'test-only-api-key';
+  h.node('llm-model').value = 'custom-chat';
+  h.node('embed-model').value = 'custom-embed';
+  h.node('max-tokens').value = '2048';
+  h.node('protocol').value = 'ollama';
+  await h.node('protocol').onchange();
+  assert.equal(requests[0].base_url, 'http://localhost:11434');
+  assert.equal(requests[0].api_key, undefined);
+  h.node('protocol').value = 'openai';
+  await h.node('protocol').onchange();
+  assert.equal(requests[1].base_url, 'https://custom.example/v1');
+  assert.equal(requests[1].api_key, 'test-only-api-key');
+  assert.equal(h.node('llm-model').value, 'custom-chat');
+});
+
+test('un identifiant manuel reste utilisable sans catalogue', async () => {
+  const h = await harness(async () => Response.json({detail:'Absent'}, {status:404}));
+  h.node('protocol').value = 'openai';
+  h.node('base-url').value = 'http://local/v1';
+  h.node('llm-model-manual').value = 'manual-chat';
+  h.node('embed-model-manual').value = 'manual-embed';
+  h.node('max-tokens').value = '2048';
+  await h.run('refreshModels(true)');
+  assert.equal(h.run('state.settings.llm_model'), 'manual-chat');
+  assert.equal(h.run('state.settings.embed_model'), 'manual-embed');
+});
+
 test('la fin de réponse conserve un nouveau brouillon saisi pendant la génération', async () => {
   let stream;
   const h = await harness(async () => new Response(new ReadableStream({ start(controller) { stream = controller; } })));

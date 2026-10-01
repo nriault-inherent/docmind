@@ -57,7 +57,9 @@ DOCMIND_EMBED_MODEL=mon-modele-embedding
 ```
 
 Le mode natif utilise `options.num_predict` pour la limite de réponse et
-`think=false`. Les modèles sont sélectionnables dans l’interface. Vous pouvez
+`think=false`. Les modèles sont sélectionnables dans les listes déroulantes de l’interface.
+Le passage entre les protocoles API et Ollama restaure leurs adresses et
+réglages respectifs en mémoire dans la page. Vous pouvez
 aussi utiliser `openai` avec `http://localhost:11434/v1` selon les fonctions
 compatibles de votre version d’Ollama.
 
@@ -90,8 +92,8 @@ reste vide.
 ## Catalogues et paramètres spécifiques
 
 La détection par nom (`embed`, `rerank`, etc.) et `model_type` reste indicative.
-Un catalogue peut omettre les capacités ou être indisponible. Saisissez alors
-les identifiants exacts dans les deux champs de modèles. Un nom personnalisé
+Un catalogue peut omettre les capacités ou être indisponible. Ouvrez alors « Saisir des identifiants de modèles manuellement » et saisissez
+les identifiants exacts. Un nom personnalisé
 est conservé lors de l’actualisation. La génération ne dépend pas du catalogue.
 
 Les options avancées acceptent un objet JSON (`DOCMIND_LLM_OPTIONS` côté serveur).

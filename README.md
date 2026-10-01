@@ -31,7 +31,7 @@ le même chemin à `scripts/init_auth.py --config CHEMIN`.
 
 Ouvrez [l’application locale](http://127.0.0.1:8501), connectez-vous, puis ouvrez
 **Réglages**. Choisissez le protocole, l’URL et les modèles de réponse et
-d’indexation. Les identifiants peuvent être saisis directement : le catalogue
+d’indexation. Les identifiants peuvent aussi être saisis dans « Saisir des identifiants de modèles manuellement » : le catalogue
 est une aide, il n’est pas obligatoire. Appliquez les réglages avant d’importer.
 
 `.env` est chargé par `uvicorn --env-file .env`. Sans cette option, exportez les

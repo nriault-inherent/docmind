@@ -84,6 +84,8 @@ function showLogin(message = '') {
   state.csrf = '';
   state.identity = null;
   state.settings = {};
+  state.providerDrafts = {};
+  state.formProtocol = '';
   state.messages = [];
   state.documents = [];
   state.selectedSources = [];
@@ -107,17 +109,18 @@ function option(select, value, label = value) {
 }
 
 function fillModels(select, models, preferred) {
-  const suggestions = select === $('llm-model') ? $('llm-model-models') : $('embed-model-models');
-  suggestions.replaceChildren();
-  for (const model of models) if (model) option(suggestions, model);
+  select.replaceChildren();
+  for (const model of models) if (model) option(select, model);
+  if (preferred && !models.includes(preferred)) option(select, preferred, `${preferred} · identifiant saisi`);
+  if (!models.length && !preferred) option(select, '', 'Saisissez un identifiant manuellement');
   select.value = preferred || models[0] || '';
 }
 
 function settingsFromForm() {
   const protocol = $('protocol').value;
   const settings = {
-    protocol, base_url: $('base-url').value.trim(), llm_model: $('llm-model').value,
-    embed_model: $('embed-model').value, max_tokens: Number($('max-tokens').value),
+    protocol, base_url: $('base-url').value.trim(), llm_model: $('llm-model-manual').value.trim() || $('llm-model').value,
+    embed_model: $('embed-model-manual').value.trim() || $('embed-model').value, max_tokens: Number($('max-tokens').value),
   };
   settings.embed_base_url = $('embed-base-url').value.trim();
   settings.embed_protocol = $('embed-protocol').value || '';
@@ -173,6 +176,10 @@ async function enterWorkspace() {
   delete state.settings.has_api_key;
   delete state.settings.has_embed_api_key;
   state.ollama = session.ollama_settings || {};
+  state.formProtocol = state.settings.protocol;
+  state.providerDrafts = {};
+  $('llm-model-manual').value = '';
+  $('embed-model-manual').value = '';
   $('protocol').value = state.settings.protocol;
   $('base-url').value = state.settings.base_url;
   $('embed-base-url').value = state.settings.embed_base_url || '';
@@ -194,6 +201,29 @@ async function enterWorkspace() {
   await loadProjects();
   await refreshModels(true);
   if (state.identity) await selectProject(state.projectId);
+}
+
+async function changeProtocol() {
+  const protocol = $('protocol').value;
+  const previous = state.formProtocol || state.settings.protocol;
+  const kind = value => value === 'ollama' ? 'ollama' : 'api';
+  state.providerDrafts ||= {};
+  if (kind(previous) !== kind(protocol)) {
+    const fields = ['base-url', 'api-key', 'llm-model', 'embed-model', 'llm-model-manual', 'embed-model-manual', 'embed-base-url', 'embed-protocol', 'embed-api-key', 'llm-options'];
+    state.providerDrafts[kind(previous)] = Object.fromEntries(fields.map(id => [id, $(id).value]));
+    const defaults = protocol === 'ollama' ? state.ollama : {};
+    const draft = state.providerDrafts[kind(protocol)] || {
+      'base-url': defaults.base_url || 'http://127.0.0.1:11435/v1',
+      'llm-model': defaults.llm_model || '', 'embed-model': defaults.embed_model || '',
+      'llm-options': '{}',
+    };
+    for (const id of fields) if (!['llm-model', 'embed-model'].includes(id)) $(id).value = draft[id] || '';
+    fillModels($('llm-model'), [], draft['llm-model']);
+    fillModels($('embed-model'), [], draft['embed-model']);
+    state.catalog = {chat: [], embedding: [], tts: []};
+  }
+  state.formProtocol = protocol;
+  await refreshModels();
 }
 
 async function refreshModels(applyToActive = false) {
@@ -819,7 +849,11 @@ document.addEventListener('click', event => {
   document.querySelectorAll('.project-menu[open]').forEach(menu => { if (!menu.contains(event.target)) menu.open = false; });
 });
 $('refresh-models').onclick = () => refreshModels();
-$('protocol').onchange = () => refreshModels();
+$('protocol').onchange = changeProtocol;
+for (const [id, category] of [['llm-model', 'chat'], ['embed-model', 'embedding']]) {
+  $(id).onchange = () => { $(`${id}-manual`).value = ''; };
+  $(`${id}-manual`).oninput = () => fillModels($(id), state.catalog?.[category] || [], $(`${id}-manual`).value.trim());
+}
 $('settings-form').onsubmit = async event => {
   event.preventDefault();
   if (state.busy || state.importing || state.audioBusy) return;

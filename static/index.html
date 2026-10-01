@@ -7,7 +7,7 @@
   <title>DocMind · Votre atelier documentaire</title>
   <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/static/styles.css?v=20261001-layout3">
-  <script type="module" src="/static/app.js?v=20261001-layout2"></script>
+  <script type="module" src="/static/app.js?v=20261001-model-selects1"></script>
 </head>
 <body>
   <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
@@ -169,8 +169,13 @@
         <label for="protocol">Protocole</label><select id="protocol"><option value="openai">API compatible OpenAI</option><option value="anthropic">API compatible Anthropic</option><option value="ollama">Ollama (API native)</option></select>
         <div id="omlx-settings"><label for="base-url">Adresse du serveur</label><input id="base-url" type="url" required value="http://127.0.0.1:11435/v1"><label for="api-key">Clé API <span class="optional">facultative</span></label><input id="api-key" type="password" autocomplete="off" placeholder="Si votre serveur en demande une"><button id="refresh-models" class="button secondary" type="button"><svg class="icon"><use href="#i-refresh"/></svg>Actualiser les modèles</button></div>
         <p id="models-status" class="field-help" role="status"></p>
-        <label for="llm-model">Modèle de réponse</label><input id="llm-model" list="llm-model-models" required maxlength="200"><datalist id="llm-model-models"></datalist>
-        <label for="embed-model">Modèle d’indexation</label><input id="embed-model" list="embed-model-models" required maxlength="200"><datalist id="embed-model-models"></datalist>
+        <label for="llm-model">Modèle de réponse</label><select id="llm-model" required></select>
+        <label for="embed-model">Modèle d’indexation</label><select id="embed-model" required></select>
+        <details><summary>Saisir des identifiants de modèles manuellement</summary>
+          <p class="field-help">Si le catalogue est absent ou incomplet, saisissez les noms exacts fournis par votre API.</p>
+          <label for="llm-model-manual">Identifiant du modèle de réponse</label><input id="llm-model-manual" maxlength="200" autocomplete="off">
+          <label for="embed-model-manual">Identifiant du modèle d’indexation</label><input id="embed-model-manual" maxlength="200" autocomplete="off">
+        </details>
         <details><summary>API d’indexation séparée et options avancées</summary>
           <label for="embed-base-url">Adresse de l’API d’indexation</label><input id="embed-base-url" type="url" placeholder="Vide : même serveur que le chat">
           <label for="embed-protocol">Protocole d’indexation</label><select id="embed-protocol"><option value="">Automatique</option><option value="openai">OpenAI</option><option value="ollama">Ollama</option></select>

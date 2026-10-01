@@ -1,0 +1,10 @@
+[project]
+name = "docmind"
+version = "0.1.0"
+description = "Base documentaire RAG avec APIs OpenAI, Anthropic et Ollama"
+requires-python = ">=3.11,<3.14"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

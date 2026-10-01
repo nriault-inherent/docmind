@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f0f7">
+  <title>DocMind · Votre atelier documentaire</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css?v=20261001-layout3">
+  <script type="module" src="/static/app.js?v=20261001-layout2"></script>
+</head>
+<body>
+  <svg class="icon-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-audio" viewBox="0 0 24 24"><path d="M4 14v-3a8 8 0 0 1 16 0v3M4 12H3v8h4v-8H4Zm16 0h1v8h-4v-8h3Z"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 19V5m-6 6 6-6 6 6"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v16M3 3c4 0 7 1 9 3 2-2 5-3 9-3v15c-4 0-7 1-9 3-2-2-5-3-9-3V3Z"/></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 11a8 8 0 0 1-8 8H7l-5 3V11a9 9 0 0 1 19 0Z"/><path d="M7 10h10M7 14h6"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M8 4v6M16 14v6"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7M14 10v7"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5M19 7a8 8 0 0 0-14-1M5 17a8 8 0 0 0 14 1"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 3H4v18h6M8 12h13m-4-4 4 4-4 4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 2 2.5 7.5L22 12l-7.5 2.5L12 22l-2.5-7.5L2 12l7.5-2.5L12 2Z"/></symbol>
+  </svg>
+  <a id="skip-link" class="skip-link" href="#question">Aller à la question</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="DocMind, accueil">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><g fill="currentColor"><rect x="16" y="2" width="8" height="36" rx="3"/><rect x="2" y="16" width="36" height="8" rx="3"/><rect x="16" y="2" width="8" height="36" rx="3" transform="rotate(45 20 20)"/><rect x="16" y="2" width="8" height="36" rx="3" transform="rotate(-45 20 20)"/></g><circle cx="20" cy="20" r="5" class="mark-center"/></svg>
+      <span>docmind<span class="brand-period">.</span></span>
+    </a>
+    <span class="header-label">L’atelier documentaire</span>
+    <div class="header-actions">
+      <span class="local-badge"><span class="status-dot"></span> IA locale</span>
+      <button id="settings-open" class="button quiet" hidden aria-label="Réglages" aria-controls="settings-panel" aria-expanded="false"><svg class="icon" aria-hidden="true"><use href="#i-settings"/></svg><span>Réglages</span></button>
+      <button id="account-button" class="avatar" hidden aria-label="Se déconnecter" title="Se déconnecter">N</button>
+    </div>
+  </header>
+
+  <main id="login-view" class="login-layout">
+    <section class="login-intro">
+      <span class="eyebrow"><span class="tiny-star">✳</span> VOS IDÉES, EN BONNE COMPAGNIE</span>
+      <h1>Le savoir est là.<br><span class="highlight">Faites-le parler.</span></h1>
+      <p>Rassemblez vos documents, posez vos questions et retrouvez le fil. Votre atelier, vos sources, votre machine.</p>
+      <div class="paper-art" aria-hidden="true">
+        <div class="art-sheet art-sheet-back"><span></span><span></span><span></span></div>
+        <div class="art-sheet art-sheet-front"><svg viewBox="0 0 100 85"><path d="M50 16v56M12 12c15 0 28 4 38 10 10-6 23-10 38-10v50c-15 0-28 4-38 10-10-6-23-10-38-10V12Z"/><path d="M22 28c7 0 13 2 19 5m-19 7c7 0 13 2 19 5m18-12c6-3 12-5 19-5m-19 17c6-3 12-5 19-5"/></svg></div>
+        <span class="art-tag">Une question. Des liens.</span><span class="art-star">✳</span>
+      </div>
+      <span class="intro-footnote">Pensé pour la curiosité. Conçu pour la confidentialité.</span>
+    </section>
+    <section class="login-form-section" aria-labelledby="login-title">
+      <span class="section-index">01 / ENTRER DANS L’ATELIER</span>
+      <h2 id="login-title">Bienvenue chez vous.</h2>
+      <p class="muted">Connectez-vous à votre espace documentaire.</p>
+      <form id="login-form">
+        <label for="username">Identifiant</label>
+        <input id="username" name="username" autocomplete="username" required placeholder="Votre identifiant">
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required placeholder="Votre mot de passe">
+        <p id="login-error" class="error-message" role="alert" hidden></p>
+        <button id="login-submit" class="button primary" type="submit">Ouvrir mon atelier <svg class="icon forward"><use href="#i-chevron"/></svg></button>
+      </form>
+      <div class="privacy-note"><svg class="icon"><use href="#i-book"/></svg><p>Les réponses s’appuient sur vos documents et vos modèles locaux.</p></div>
+    </section>
+  </main>
+
+  <div id="workspace" class="workspace" hidden data-view="chat" data-mode="chat">
+      <section class="project-controls" aria-label="Projet actif">
+        <div class="project-switcher"><label for="project-select">Projet actif</label>
+        <select id="project-select"><option value="general">Général</option></select></div><div class="project-actions">
+        <details id="new-project" class="project-menu"><summary>Créer un projet</summary><div class="project-menu-content">
+          <form id="project-form"><label for="project-name">Nom du projet</label><input id="project-name" maxlength="120" required placeholder="Ex. Veille technique"><button id="create-project" type="submit" class="button secondary">Créer</button></form></div>
+        </details>
+
+        <details id="manage-project" class="project-menu"><summary>Gérer le projet</summary><div class="project-menu-content">
+          <form id="rename-project-form"><label for="rename-project-name">Nom du projet</label><input id="rename-project-name" maxlength="120" required><button id="rename-project" type="submit" class="button secondary">Renommer</button></form>
+          <details id="delete-project" class="project-delete"><summary>Supprimer le projet</summary>
+            <p>Supprimer « <strong id="delete-project-name"></strong> » ? Ses documents, discussions et résumés audio seront supprimés définitivement.</p>
+            <button id="delete-project-confirm" type="button" class="button danger">Supprimer définitivement</button>
+          </details></div>
+        </details>
+      </div><p id="project-status" class="field-help" role="status"></p></section>
+
+    <nav class="mobile-nav" aria-label="Zones de l’atelier">
+      <button class="view-button" data-view="library" aria-pressed="false"><svg class="icon"><use href="#i-book"/></svg>Documents</button>
+      <button class="view-button" data-view="chat" aria-pressed="true"><svg class="icon"><use href="#i-chat"/></svg>Discussion</button>
+      <button class="view-button" data-view="audio" aria-pressed="false"><svg class="icon"><use href="#i-audio"/></svg>Audio</button>
+      <button class="view-button" data-view="sources" aria-pressed="false"><svg class="icon"><use href="#i-file"/></svg>Sources</button>
+    </nav>
+    <aside class="library" aria-labelledby="library-title">
+      <div class="panel-heading"><div><span class="section-index">DANS CE PROJET</span><h2 id="library-title" tabindex="-1">Documents <span id="document-count" class="count">0</span></h2></div></div>
+      <button id="add-documents" class="button primary"><svg class="icon"><use href="#i-plus"/></svg>Ajouter des documents</button>
+      <input id="file-input" type="file" multiple accept=".pdf,.docx,.txt,.md,.markdown,.html,.htm" hidden>
+      <div class="library-toolbar"><span>DOCUMENTS INDEXÉS</span><button id="refresh-documents" class="icon-button" aria-label="Actualiser les documents"><svg class="icon"><use href="#i-refresh"/></svg></button></div>
+      <div id="document-list" class="document-list"></div>
+      <div id="library-empty" class="library-empty"><svg class="icon"><use href="#i-book"/></svg><p>La première page<br>reste à écrire.</p><span>Ajoutez un document pour commencer.</span></div>
+      <div class="import-area">
+        <button id="dropzone" class="dropzone"><svg class="icon"><use href="#i-plus"/></svg><span>Déposez vos fichiers ici</span><small>ou cliquez pour les choisir</small></button>
+        <p class="format-note">PDF, DOCX, TXT, MD, HTML · 200 Mo / fichier</p>
+        <p id="upload-status" class="operation-status" role="status" hidden></p>
+        <ul id="upload-results" class="upload-results" aria-label="Résultats de l’import"></ul>
+      </div>
+      <div class="library-footer"><span class="status-dot"></span><span>Votre base reste sur votre machine.</span></div>
+    </aside>
+
+    <main id="chat-panel" class="chat-panel" aria-labelledby="chat-title">
+      <h2 id="chat-title" class="sr-only">Discussion</h2>
+      <nav class="workspace-modes" aria-label="Activités du projet">
+        <button class="mode-button" data-mode="chat" aria-controls="chat-content" aria-pressed="true"><svg class="icon"><use href="#i-chat"/></svg>Discussion</button>
+        <button class="mode-button" data-mode="audio" aria-controls="audio-panel" aria-pressed="false"><svg class="icon"><use href="#i-audio"/></svg>Résumés audio</button>
+      </nav>
+      <div id="notice" class="notice workspace-notice" role="status" hidden></div>
+      <div id="chat-content" class="chat-content">
+      <div class="conversation-navigation"><div class="conversation-picker"><label for="conversation-select" class="sr-only">Discussions du projet</label><select id="conversation-select"><option value="">Votre première discussion</option></select></div><button id="clear-chat" class="button quiet" aria-label="Créer une nouvelle discussion"><svg class="icon"><use href="#i-plus"/></svg><span>Nouvelle discussion</span></button></div>
+      <div id="conversation" class="conversation" tabindex="-1">
+        <section id="welcome" class="welcome">
+          <div class="welcome-symbol" aria-hidden="true"><svg viewBox="0 0 100 90"><path d="M50 18v58M12 12c16 0 28 4 38 11 10-7 22-11 38-11v53c-16 0-28 4-38 11-10-7-22-11-38-11V12Z"/><path d="M24 30h12m-12 12h12m28-12h12m-12 12h12"/></svg><span>✳</span></div>
+          <span class="eyebrow">DE LA MATIÈRE AUX IDÉES</span>
+          <h1>Vos documents ont<br><span class="highlight">beaucoup à vous dire.</span></h1>
+          <p>Une synthèse, un détail, un lien entre deux idées.<br>Posez une question, remontez à la source.</p>
+          <div class="suggestions" aria-label="Exemples de questions">
+            <button data-question="Quels sont les points clés de mes documents ?"><svg class="icon"><use href="#i-spark"/></svg><span>Dégager l’essentiel</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+            <button data-question="Quels sujets communs relient mes documents ?"><svg class="icon"><use href="#i-book"/></svg><span>Relier les idées</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+            <button data-question="Quelles actions sont recommandées dans mes documents ?"><svg class="icon"><use href="#i-check"/></svg><span>Passer à l’action</span><svg class="icon"><use href="#i-chevron"/></svg></button>
+          </div>
+          <span id="welcome-hint" class="welcome-hint">Commencez par ajouter vos documents à la bibliothèque.</span>
+        </section>
+        <div id="messages" class="messages"></div>
+      </div>
+      <div class="composer-area">
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="question">Votre question sur les documents</label>
+          <textarea id="question" rows="2" placeholder="Qu’aimeriez-vous savoir ?" maxlength="20000"></textarea>
+          <div class="composer-bottom"><span><svg class="icon"><use href="#i-file"/></svg><span id="context-count">Vos documents comme point de départ</span></span><button id="send-question" class="send-button" type="submit" aria-label="Envoyer la question" disabled><svg class="icon"><use href="#i-arrow"/></svg></button></div>
+        </form>
+        <div class="composer-caption"><span id="model-label">Modèle à sélectionner</span><span>Vérifiez toujours les sources.</span></div>
+      </div>
+      </div>
+      <section id="audio-panel" class="audio-panel" aria-labelledby="audio-title" hidden>
+        <header class="audio-heading"><span class="section-index">ÉCOUTER VOS DOCUMENTS</span><h2 id="audio-title" tabindex="-1">L’essentiel, à écouter.</h2><p>Un résumé de tous les documents du projet, avec le texte à retrouver à tout moment.</p></header>
+        <form id="audio-form" class="audio-form">
+          <div><label for="audio-detail">Niveau de détail</label><select id="audio-detail"><option value="brief">Bref · l’essentiel</option><option value="standard" selected>Standard · idées et conclusions</option><option value="detailed">Détaillé · exemples et nuances</option></select></div>
+          <button id="generate-audio" type="submit" class="button primary" disabled><svg class="icon"><use href="#i-plus"/></svg>Créer un résumé audio</button>
+        </form>
+        <p id="audio-hint" class="field-help">Ajoutez des documents au projet pour créer un résumé.</p>
+        <p id="audio-status" class="operation-status" role="status" hidden></p>
+        <div class="audio-history-heading"><h3>Résumés enregistrés</h3><span id="audio-count" class="count">0</span></div>
+        <p id="audio-empty" class="audio-empty">Votre premier résumé apparaîtra ici. Vous pourrez l’écouter, le télécharger et lire sa transcription.</p>
+        <div id="audio-history" class="audio-history"></div>
+      </section>
+    </main>
+
+    <aside class="sources-panel" aria-labelledby="sources-title">
+      <div class="panel-heading"><div><span class="section-index">LE FIL DE LA RÉPONSE</span><h2 id="sources-title" tabindex="-1">Sources <span id="source-count" class="count">0</span></h2></div></div>
+      <div id="sources-empty" class="sources-empty"><div class="source-art" aria-hidden="true"><span class="source-line"></span><svg class="icon"><use href="#i-file"/></svg><span class="source-dot">✳</span></div><h3>Rien n’est hors contexte.</h3><p>Les passages utilisés dans une réponse apparaîtront ici, avec leur document d’origine.</p></div>
+      <ol id="source-list" class="source-list"></ol>
+      <div class="sources-footer"><svg class="icon"><use href="#i-check"/></svg><p>Une réponse utile commence par une source vérifiable.</p></div>
+    </aside>
+  </div>
+
+  <aside id="settings-panel" class="settings-panel" aria-labelledby="settings-title" hidden>
+    <div class="settings-heading"><div><span class="section-index">À VOTRE MESURE</span><h2 id="settings-title">Réglages de l’atelier</h2></div><button id="settings-close" class="icon-button" aria-label="Fermer les réglages"><svg class="icon"><use href="#i-close"/></svg></button></div>
+    <form id="settings-form">
+      <fieldset><legend>Votre moteur local</legend>
+        <label for="protocol">Protocole</label><select id="protocol"><option value="openai">API compatible OpenAI</option><option value="anthropic">API compatible Anthropic</option><option value="ollama">Ollama (API native)</option></select>
+        <div id="omlx-settings"><label for="base-url">Adresse du serveur</label><input id="base-url" type="url" required value="http://127.0.0.1:11435/v1"><label for="api-key">Clé API <span class="optional">facultative</span></label><input id="api-key" type="password" autocomplete="off" placeholder="Si votre serveur en demande une"><button id="refresh-models" class="button secondary" type="button"><svg class="icon"><use href="#i-refresh"/></svg>Actualiser les modèles</button></div>
+        <p id="models-status" class="field-help" role="status"></p>
+        <label for="llm-model">Modèle de réponse</label><input id="llm-model" list="llm-model-models" required maxlength="200"><datalist id="llm-model-models"></datalist>
+        <label for="embed-model">Modèle d’indexation</label><input id="embed-model" list="embed-model-models" required maxlength="200"><datalist id="embed-model-models"></datalist>
+        <details><summary>API d’indexation séparée et options avancées</summary>
+          <label for="embed-base-url">Adresse de l’API d’indexation</label><input id="embed-base-url" type="url" placeholder="Vide : même serveur que le chat">
+          <label for="embed-protocol">Protocole d’indexation</label><select id="embed-protocol"><option value="">Automatique</option><option value="openai">OpenAI</option><option value="ollama">Ollama</option></select>
+          <label for="embed-api-key">Clé API d’indexation</label><input id="embed-api-key" type="password" autocomplete="off" placeholder="Clé séparée, facultative">
+          <label for="llm-options">Options de génération (JSON)</label><textarea id="llm-options" rows="3" placeholder='{}'></textarea>
+          <p class="field-help">Les valeurs null retirent un paramètre. Ne saisissez pas de secret dans ces options.</p>
+        </details>
+        <label for="tts-model">Modèle de voix</label><input id="tts-model" list="tts-models" value="fishaudio-s2-pro-8bit-mlx" maxlength="200"><datalist id="tts-models"></datalist>
+        <p class="field-help">La voix utilise oMLX. Le modèle de réponse rédige d’abord le résumé.</p>
+        <p class="field-help">Chaque adresse et modèle d’indexation a sa bibliothèque. Si vous en changez, réimportez vos documents.</p>
+      </fieldset>
+      <fieldset><legend>Recherche & réponse</legend>
+        <label for="max-tokens">Longueur maximale <output id="tokens-output">2048 tokens</output></label><input id="max-tokens" type="range" min="256" max="8192" step="256" value="2048">
+        <label for="top-k">Passages recherchés <output id="k-output">5</output></label><input id="top-k" type="range" min="1" max="15" value="5">
+        <label for="cutoff">Seuil de pertinence <output id="cutoff-output">0,20</output></label><input id="cutoff" type="range" min="0" max="1" step="0.05" value="0.2">
+      </fieldset>
+      <button id="apply-settings" type="submit" class="button primary">Appliquer les réglages <svg class="icon"><use href="#i-check"/></svg></button>
+    </form>
+  </aside>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+  <noscript><p class="notice">Activez JavaScript pour ouvrir votre atelier documentaire.</p></noscript>
+</body>
+</html>

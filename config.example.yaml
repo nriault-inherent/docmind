@@ -1,0 +1,8 @@
+credentials:
+  usernames:
+    user:
+      name: Utilisateur
+      password: REPLACE_WITH_BCRYPT_HASH
+cookie:
+  name: docmind_session
+  expiry_days: 1
